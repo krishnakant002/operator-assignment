@@ -1,6 +1,6 @@
 apiVersion: example.com/v1alpha1
-kind: App
+kind: AppDB
 metadata:
-  name: app-sample
+  name: myappdb
 spec:
   size: 3

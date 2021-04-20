@@ -3,4 +3,5 @@
 # It should be run by config/default
 resources:
 - bases/example.com_apps.yaml
+- bases/example.com_appdbs.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
