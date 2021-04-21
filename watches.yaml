@@ -4,4 +4,8 @@
   group: example.com
   kind: App
   role: app
+- version: v1alpha1
+  group: example.com
+  kind: AppDB
+  role: appdb
 #+kubebuilder:scaffold:watch

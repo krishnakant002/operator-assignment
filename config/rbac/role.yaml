@@ -10,7 +10,13 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - services
+      - roles
+      - rolebindings
+      - persistentvolumeclaims
+      - serviceaccounts
       - secrets
+      - configmaps
       - pods
       - pods/exec
       - pods/log
@@ -42,7 +48,10 @@ rules:
   ##
   - apiGroups:
       - example.com
+      - operators.coreos.com
+      - apiextensions.k8s.io
     resources:
+      - '*'
       - apps
       - apps/status
       - apps/finalizers
