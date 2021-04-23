@@ -1,0 +1,87 @@
+---
+# tasks file for App
+- name: Create app Secret with MySQL credentials
+  community.kubernetes.k8s:
+     definition:
+        kind: Secret
+        apiVersion: v1
+        metadata:
+          name: '{{ansible_operator_meta.name}}'
+          namespace: '{{ansible_operator_meta.namespace}}'
+        type: Opaque
+        data:
+         root-username: cm9vdA==
+         root-password: YmJwbTE5OTg=
+- name: Create ConfigMap
+  community.kubernetes.k8s:
+     definition:
+        kind: ConfigMap
+        apiVersion: v1
+        metadata:
+          name: '{{ansible_operator_meta.name}}'
+          namespace: '{{ansible_operator_meta.namespace}}'
+        data:
+         database: EmployeeDB
+         host: mysql
+- name: Create node service
+  community.kubernetes.k8s:
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: '{{ansible_operator_meta.name}}'
+        namespace: '{{ansible_operator_meta.namespace}}'
+      spec:
+       type: NodePort
+       selector:
+         app: '{{ansible_operator_meta.name}}'
+       ports:
+        - protocol: TCP
+          port: 3000
+          targetPort: 3000
+- name: Create node deployment
+  community.kubernetes.k8s:
+    definition:
+       apiVersion: apps/v1
+       kind: Deployment
+       metadata:
+         name: '{{ansible_operator_meta.name}}'
+         namespace: '{{ansible_operator_meta.namespace}}'
+         labels:
+           app: '{{ansible_operator_meta.name}}'
+       spec:
+         replicas: '{{size}}'
+         selector:
+           matchLabels:
+              app: '{{ansible_operator_meta.name}}'
+         template:
+            metadata:
+               labels:
+                  app: '{{ansible_operator_meta.name}}'
+            spec:
+             containers:
+              - name: nodejs
+                image: "docker.io/bilwamoye/myemployeeapi:latest"
+                env:
+                 - name: DB_HOST
+                   valueFrom:
+                     configMapKeyRef:
+                      name: '{{ansible_operator_meta.name}}'
+                      key: host
+                 - name: DB_USER 
+                   valueFrom:
+                    secretKeyRef:
+                     name: '{{ansible_operator_meta.name}}'
+                     key: root-username
+                 - name: DB_PASSWORD 
+                   valueFrom:
+                    secretKeyRef:
+                     name: '{{ansible_operator_meta.name}}'
+                     key: root-password   
+                 - name: MYSQL_DB
+                   valueFrom:
+                    configMapKeyRef:
+                     name: '{{ansible_operator_meta.name}}'
+                     key: database    
+                ports:
+                - containerPort: 3000
