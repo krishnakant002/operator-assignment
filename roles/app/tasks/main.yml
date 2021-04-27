@@ -50,7 +50,7 @@
          labels:
            app: '{{ ansible_operator_meta.name }}'
        spec:
-         replicas: '{{size}}'
+         replicas: "{{size}}"
          selector:
            matchLabels:
               app: '{{ ansible_operator_meta.name }}'

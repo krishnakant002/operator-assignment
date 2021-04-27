@@ -4,4 +4,4 @@ ansible_operator_meta:
   name: app-sample
   namespace: default
 spec:
-  size: 3
+  size: 1
