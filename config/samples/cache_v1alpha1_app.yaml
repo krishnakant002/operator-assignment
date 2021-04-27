@@ -1,7 +1,7 @@
 apiVersion: cache.example.com/v1alpha1
 kind: App
-ansible_operator_meta:
+metadata:
   name: app-sample
   namespace: default
 spec:
-  size: 1
+  size: 2
