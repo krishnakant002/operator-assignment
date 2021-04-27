@@ -11,6 +11,8 @@ rules:
       - ""
     resources:
       - secrets
+      - configmaps
+      - services
       - pods
       - pods/exec
       - pods/log
@@ -25,6 +27,7 @@ rules:
   - apiGroups:
       - apps
     resources:
+      - '*'
       - deployments
       - daemonsets
       - replicasets
@@ -43,6 +46,7 @@ rules:
   - apiGroups:
       - cache.example.com
     resources:
+      - '*'
       - apps
       - apps/status
       - apps/finalizers
