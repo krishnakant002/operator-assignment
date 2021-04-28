@@ -2,7 +2,5 @@ apiVersion: cache.example.com/v1alpha1
 kind: App
 metadata:
   name: app-sample
-  annotations:
-    ansible.operator-sdk/reconcile-period: "30s"
 spec:
   size: 1
