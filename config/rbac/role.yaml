@@ -13,6 +13,7 @@ rules:
       - secrets
       - configmaps
       - services
+      - persistentvolumeclaims
       - pods
       - pods/exec
       - pods/log
