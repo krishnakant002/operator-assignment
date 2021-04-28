@@ -2,6 +2,10 @@
 # Use the 'create api' subcommand to add watches to this file.
 - version: v1alpha1
   group: cache.example.com
+  kind: AppDB
+  playbook: playbooks/appdb.yml
+- version: v1alpha1
+  group: cache.example.com
   kind: App
   playbook: playbooks/app.yml
 # +kubebuilder:scaffold:watch
