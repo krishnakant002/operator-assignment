@@ -41,7 +41,7 @@
         selector:       
           app: mysql
           tier: database  
-        clusterIP: None
+        #clusterIP: None
 - name: Create Persistent Volume Claim
   community.kubernetes.k8s:
      definition:
